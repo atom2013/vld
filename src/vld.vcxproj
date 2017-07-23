@@ -5,211 +5,195 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
+    <ProjectConfiguration Include="Template|Win32">
+      <Configuration>Template</Configuration>
+      <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0D30FFCB-45DA-4D2B-8E3C-81BC145BF2DE}</ProjectGuid>
-    <RootNamespace>vld</RootNamespace>
-    <CharacterSet>Unicode</CharacterSet>
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <WholeProgramOptimization Condition="'$(Configuration)'=='Release'">true</WholeProgramOptimization>
-    <NumericPlatform Condition="'$(Platform)'=='Win32'">x86</NumericPlatform>
-    <NumericPlatform Condition="'$(Platform)'=='x64'">x64</NumericPlatform>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>vld</ProjectName>
+    <SccProjectName />
+    <SccLocalPath />
   </PropertyGroup>
-  <!-- Import Default Property Sheets -->
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Label="Configuration">
-    <PlatformToolset>v140_xp</PlatformToolset>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <!-- Global properties -->
-  <PropertyGroup>
-    <_ProjectFileVersion>10.0.30128.1</_ProjectFileVersion>
-    <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)-v$(PlatformToolsetVersion)\</OutDir>
-    <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)-v$(PlatformToolsetVersion)\$(ProjectName)\</IntDir>
-    <CodeAnalysisRuleSet Condition="'$(Platform)'=='Win32'">NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <TargetName>$(ProjectName)_$(NumericPlatform)</TargetName>
-    <VcpkgEnabled>false</VcpkgEnabled>
-  </PropertyGroup>
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <OutDir>.\bin\$(Platform)\$(Configuration)-$(PlatformToolset)\</OutDir>
+    <IntDir>.\obj\$(Platform)\$(Configuration)-$(PlatformToolset)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>../setup;$(IncludePath)</IncludePath>
+    <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <OutDir>.\bin\$(PlatformName)\$(Configuration)-$(PlatformToolset)\</OutDir>
+    <IntDir>.\obj\$(PlatformName)\$(Configuration)-$(PlatformToolset)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>../setup;../lib;$(IncludePath)</IncludePath>
+    <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
+    <GenerateManifest>false</GenerateManifest>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <ItemDefinitionGroup>
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\lib\;$(SolutionDir)\lib\dbghelp\include;$(SolutionDir)\setup;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-    </ClCompile>
-    <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <BaseAddress>0x03200000</BaseAddress>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\dbghelp\lib\$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-    <PostBuildEvent>
-      <Command>copy "$(OutDir)$(TargetName).lib" "$(OutDir)vld.lib" /y</Command>
-    </PostBuildEvent>
-    <ResourceCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\setup</AdditionalIncludeDirectories>
-    </ResourceCompile>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_USRDLL;WIN32;_WIN32_WINNT=0x0502;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <WarningLevel>Level4</WarningLevel>
-      <StringPooling>false</StringPooling>
-      <EnablePREfast>false</EnablePREfast>
-      <DisableSpecificWarnings>4201;4229;4091;4302;4311;4312;4127</DisableSpecificWarnings>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Windows</SubSystem>
-    </Link>
-    <Manifest>
-      <AdditionalManifestFiles>vld.dll.dependency.x86.manifest</AdditionalManifestFiles>
-    </Manifest>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_USRDLL;WIN64;_WIN32_WINNT=0x0502;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>../inc;../lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;UNICODE;_WIN32_WINNT=0x0502;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions> /Zc:wchar_t </AdditionalOptions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <WarningLevel>Level4</WarningLevel>
-      <StringPooling>false</StringPooling>
-      <DisableSpecificWarnings>4201;4229;4091;4302;4311;4312;4127</DisableSpecificWarnings>
-      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Windows</SubSystem>
-    </Link>
-    <Manifest>
-      <AdditionalManifestFiles>vld.dll.dependency.x64.manifest</AdditionalManifestFiles>
-    </Manifest>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Debug\vld.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_UNICODE;UNICODE;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0804</Culture>
+      <AdditionalIncludeDirectories>../setup;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug\vld.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LinkDLL>true</LinkDLL>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;libformat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ProgramDatabaseFile>$(TargetDir)$(TargetName)_$(PlatformShortName).pdb</ProgramDatabaseFile>
+      <OutputFile>$(OutDir)$(TargetName)_$(PlatformShortName)$(TargetExt)</OutputFile>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>
+      </AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <Optimization>Full</Optimization>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <PreprocessorDefinitions>NDEBUG;_USRDLL;WIN32;_WIN32_WINNT=0x0502;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
-      <FloatingPointModel>Fast</FloatingPointModel>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <DisableSpecificWarnings>4201;4229;4091;4302;4311;4312;4127</DisableSpecificWarnings>
-      <EnablePREfast>false</EnablePREfast>
-    </ClCompile>
-    <Link>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <SubSystem>Windows</SubSystem>
-    </Link>
-    <Manifest>
-      <AdditionalManifestFiles>vld.dll.dependency.x86.manifest</AdditionalManifestFiles>
-    </Manifest>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <Optimization>Full</Optimization>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <PreprocessorDefinitions>NDEBUG;_USRDLL;WIN64;_WIN32_WINNT=0x0502;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
-      <FloatingPointModel>Fast</FloatingPointModel>
-      <OmitFramePointers>false</OmitFramePointers>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <DisableSpecificWarnings>4201;4229;4091;4302;4311;4312;4127</DisableSpecificWarnings>
-      <EnablePREfast>false</EnablePREfast>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;UNICODE;_UNICODE;_WIN32_WINNT=0x0502;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <Link>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <Profile>true</Profile>
-      <SubSystem>Windows</SubSystem>
-    </Link>
-    <Manifest>
-      <AdditionalManifestFiles>vld.dll.dependency.x64.manifest</AdditionalManifestFiles>
-    </Manifest>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Release\vld.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_UNICODE;UNICODE;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\vld.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LinkDLL>true</LinkDLL>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;libformat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ManifestFile>$(IntDir)$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
+      <ProgramDatabaseFile>$(TargetDir)$(TargetName)_$(PlatformShortName).pdb</ProgramDatabaseFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>$(OutDir)$(TargetName)_$(PlatformShortName)$(TargetExt)</OutputFile>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="callstack.cpp" />
-    <ClCompile Include="dllspatches.cpp" />
-    <ClCompile Include="ntapi.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>
+    <ClCompile Include="callstack.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /Zc:wchar_t   /Zc:wchar_t </AdditionalOptions>
     </ClCompile>
-    <ClCompile Include="utility.cpp" />
-    <ClCompile Include="vld.cpp" />
-    <ClCompile Include="vldapi.cpp" />
-    <ClCompile Include="vldheap.cpp" />
-    <ClCompile Include="vld_hooks.cpp" />
+    <ClCompile Include="dllspatches.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /Zc:wchar_t   /Zc:wchar_t </AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="ntapi.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /Zc:wchar_t   /Zc:wchar_t </AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /Zc:wchar_t   /Zc:wchar_t </AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="utility.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /Zc:wchar_t   /Zc:wchar_t </AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="vld.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /Zc:wchar_t   /Zc:wchar_t </AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="vld_hooks.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /Zc:wchar_t   /Zc:wchar_t </AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="vldapi.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /Zc:wchar_t   /Zc:wchar_t </AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="vldheap.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /Zc:wchar_t   /Zc:wchar_t </AdditionalOptions>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="vld.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callstack.h" />
     <ClInclude Include="criticalsection.h" />
     <ClInclude Include="crtmfcpatch.h" />
     <ClInclude Include="dbghelp.h" />
+    <ClInclude Include="loaderlock.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="ntapi.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="set.h" />
-    <ClInclude Include="..\setup\version.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="tree.h" />
     <ClInclude Include="utility.h" />
     <ClInclude Include="vld.h" />
+    <ClInclude Include="vld_def.h" />
     <ClInclude Include="vldallocator.h" />
     <ClInclude Include="vldheap.h" />
     <ClInclude Include="vldint.h" />
-    <ClInclude Include="vld_def.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="vld.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="vld.natvis" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\lib\cppformat\format.vcxproj">
-      <Project>{4adfd279-56c6-4b1d-ba9e-b815e81c1b17}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -41,16 +41,11 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "{group}\View Documentation"; Filename: "http://vld.codeplex.com/documentation"
 
 [Files]
-Source: "dbghelp\x64\dbghelp.dll"; DestDir: "{app}\bin\Win64"; Flags: ignoreversion
-Source: "dbghelp\x64\Microsoft.DTfW.DHL.manifest"; DestDir: "{app}\bin\Win64"; Flags: ignoreversion
 Source: "dbghelp\x86\dbghelp.dll"; DestDir: "{app}\bin\Win32"; Flags: ignoreversion
 Source: "dbghelp\x86\Microsoft.DTfW.DHL.manifest"; DestDir: "{app}\bin\Win32"; Flags: ignoreversion
-Source: "..\src\bin\Win32\Release-v140\vld.lib"; DestDir: "{app}\lib\Win32"; Flags: ignoreversion
-Source: "..\src\bin\Win32\Release-v140\vld_x86.dll"; DestDir: "{app}\bin\Win32"; Flags: ignoreversion
-Source: "..\src\bin\Win32\Release-v140\vld_x86.pdb"; DestDir: "{app}\bin\Win32"; Flags: ignoreversion
-Source: "..\src\bin\x64\Release-v140\vld.lib"; DestDir: "{app}\lib\Win64"; Flags: ignoreversion
-Source: "..\src\bin\x64\Release-v140\vld_x64.dll"; DestDir: "{app}\bin\Win64"; Flags: ignoreversion
-Source: "..\src\bin\x64\Release-v140\vld_x64.pdb"; DestDir: "{app}\bin\Win64"; Flags: ignoreversion
+Source: "..\src\bin\Win32\Release-v100\vld.lib"; DestDir: "{app}\lib\Win32"; Flags: ignoreversion
+Source: "..\src\bin\Win32\Release-v100\vld_x86.dll"; DestDir: "{app}\bin\Win32"; Flags: ignoreversion
+Source: "..\src\bin\Win32\Release-v100\vld_x86.pdb"; DestDir: "{app}\bin\Win32"; Flags: ignoreversion
 Source: "..\src\vld.h"; DestDir: "{app}\include"; Flags: ignoreversion
 Source: "..\src\vld_def.h"; DestDir: "{app}\include"; Flags: ignoreversion
 Source: "..\vld.ini"; DestDir: "{app}"; Flags: ignoreversion
@@ -72,11 +67,6 @@ Root: "HKLM32"; Subkey: "{#MyAppRegKey}"; ValueType: string; ValueName: "Install
 Root: "HKLM32"; Subkey: "{#MyAppRegKey}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"
 Root: "HKLM32"; Subkey: "{#MyAppRegKey}"; ValueType: string; ValueName: "IniFile"; ValueData: "{app}\vld.ini"
 
-Root: "HKLM64"; Subkey: "{#MyAppRegKey}"; Flags: uninsdeletekeyifempty
-Root: "HKLM64"; Subkey: "{#MyAppRegKey}"; ValueType: string; ValueName: "InstalledVersion"; ValueData: "{#MyAppVersion}"
-Root: "HKLM64"; Subkey: "{#MyAppRegKey}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"
-Root: "HKLM64"; Subkey: "{#MyAppRegKey}"; ValueType: string; ValueName: "IniFile"; ValueData: "{app}\vld.ini"
-
 [Code]
 type
   TKey = string;
@@ -95,7 +85,6 @@ function ModPathDir(): TArrayOfString;
 begin
     setArrayLength(Result, 2);
     Result[0] := ExpandConstant('{app}\bin\Win32');
-    Result[1] := ExpandConstant('{app}\bin\Win64');
 end;
 
 #include "modpath.iss"
@@ -216,15 +205,14 @@ begin
     Result := dirList;
 end;
 
-procedure UpdatePaths(var dirList: string; path32: string; path64: string);
+procedure UpdatePaths(var dirList: string; path32: string);
 var map: TKeyValueList;
   i: Integer;
 begin
   Explode(map, dirList, '|');
   for i := 0 to GetArrayLength(map) - 1 do
   begin
-    if map[i].Key = 'Win32' then map[i].Value := UpdatePath(map[i].Value, path32)
-    else if map[i].Key = 'x64' then map[i].Value := UpdatePath(map[i].Value, path64);
+    if map[i].Key = 'Win32' then map[i].Value := UpdatePath(map[i].Value, path32);
   end;
   dirList := Merge(map, '|');
   Log(dirList);
@@ -263,8 +251,8 @@ begin
       AdditionalLibraryDirectories := '';
       if not VarIsNull(LibraryDirectoriesNode) then
         AdditionalLibraryDirectories := LibraryDirectoriesNode.Text;
-      UpdatePaths(AdditionalIncludeDirectories, ExpandConstant('{app}\include'), ExpandConstant('{app}\include'));
-      UpdatePaths(AdditionalLibraryDirectories, ExpandConstant('{app}\lib\Win32'), ExpandConstant('{app}\lib\Win64'));
+      UpdatePaths(AdditionalIncludeDirectories, ExpandConstant('{app}\include'));
+      UpdatePaths(AdditionalLibraryDirectories, ExpandConstant('{app}\lib\Win32'));
       IncludeDirectoriesNode.Text := AdditionalIncludeDirectories;
       LibraryDirectoriesNode.Text := AdditionalLibraryDirectories;
       XMLDocument.save(filename);
@@ -429,7 +417,6 @@ begin
   if DirExists(Path) then
   begin
     ModifyProps(Path + 'Microsoft.Cpp.Win32.user.props', 'Win32');
-    ModifyProps(Path + 'Microsoft.Cpp.x64.user.props', 'Win64');
   end;
 end;
 
